@@ -4,19 +4,28 @@ const request = require("request");
 module.exports = function(client) {
   client.on("message", msg => {
     if (msg.content == helpers.formatCommand("self")) {
-      //msg.reply("Pong!");
-
       const url = `https://xbl.io/api/v2/account`;
-      //const url = `https://xbl.io/api/v2/friends/search?gt=Prouser123`;
+
       const headers = { "X-Authorization": process.env.XBL_TOKEN };
       request({ url, headers }, function(error, response, body) {
-        const json = JSON.parse(body);
+        
+        // Check the HTTP Response Code.
+        if(response.statusCode !== 200) {
+          msg.reply("Sorry, I coudn't get your request from the API.")
+          helpers.warn(`HTTP Response ${response.statusCode}`, "route.search")
+          return;
+        }
+
+        // Check the body for error codes from API.
+        if (!helpers.responseFormatter.checkBody(body)) {
+          msg.reply("We coudn't find that gamertag. Please try again.");
+          return;
+        }
+        
+        // Format data
         const data = helpers.responseFormatter.myAccount(body);
-        helpers.debug.level2(JSON.stringify(data), "route.self.data")
-        helpers.log(`Rate Limit Remaining: ${helpers.getRemainingRateLimit(response)}`, "route.self");
         // Create and send an embed
-        //helpers.messages.sendNonRichUserEmbed(client, msg, json);
-        //helpers.messages.sendRichUserEmbed(client, msg, json);
+        helpers.messages.sendRichUserEmbed(client, msg, data);
       });
     }
   });

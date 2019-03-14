@@ -36,19 +36,37 @@ function sendNonRichUserEmbed(client, msg, json) {
   });
 }
 
-function sendRichUserEmbed(client, msg, json) {
+function sendRichUserEmbed(client, msg, data) {
+  
+  const author = (data.realName === undefined) ? data.gamertag : `${data.gamertag} (${data.realName})`
+
+  let subscriptionMessage = `Xbox Live ${data.subscriptionType}`
+  if (data.tenure === 1) {
+    console.log("t1")
+    subscriptionMessage += ` (${data.tenure} year)`
+  }
+   else if (data.tenure > 1) {
+    console.log("t2")
+    subscriptionMessage += ` (${data.tenure} years)`
+  }
+
   const embed = new Discord.RichEmbed()
     .setColor(3447003)
-    .setAuthor(json.profileUsers[0].settings[2].value, client.user.avatarURL)
-    .setThumbnail(json.profileUsers[0].settings[0].value)
+    .setAuthor(author, client.user.avatarURL)
+    .setThumbnail(data.pictureURL)
     // Set footer text, icon and timestamp
 
     .setFooter(`Xbox Live | ${prefix}`, client.user.avatarURL)
     .setTimestamp()
     // Add fields
-    .addField("Gamerscore", json.profileUsers[0].settings[1].value)
-    .addField("Subscription", `Xbox Live ${json.profileUsers[0].settings[3].value}`)
-    .addField("Reputation", json.profileUsers[0].settings[4].value.split("Player")[0]);
+    //.addField("Status", `${data.presenceState} - ${data.presenceText}`)
+    .addField("Gamerscore", data.gamerscore)
+    .addField("Subscription", subscriptionMessage)
+    .addField("Reputation", data.reputation);
+
+  if (data.bio !== undefined) embed.addField("Bio", data.bio);
+  if (data.location !== undefined) embed.addField("Location", data.location);
+  if (data.watermarks !== undefined) embed.addField("Watermarks", data.watermarks);
 
   msg.channel.send({ embed });
 }

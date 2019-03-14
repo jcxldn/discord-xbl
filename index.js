@@ -6,7 +6,7 @@ const colors = require("colors/safe");
 const prefix = "!xbox";
 
 // Debug
-const debugLevel = 2;
+const debugLevel = 1;
 
 
 module.exports = { prefix, debugLevel };
