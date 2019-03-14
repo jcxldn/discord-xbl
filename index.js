@@ -6,7 +6,7 @@ const colors = require("colors/safe");
 const prefix = "!xbox";
 
 // Debug
-const debugLevel = 1;
+const debugLevel = 2;
 
 
 module.exports = { prefix, debugLevel };
@@ -38,7 +38,7 @@ require("./routes")(client);
 client.login(process.env.DISCORD_TOKEN);
 
 // -------------------- Exit Handler --------------------
-/*
+// /*
 let isExiting = false;
 
 function exitHandler(options, exitCode) {
@@ -65,4 +65,4 @@ process.on("SIGUSR2", exitHandler.bind(null));
 //catches uncaught exceptions
 process.on("uncaughtException", exitHandler.bind(null));
 
-*/
+// */
