@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-const { prefix } = require("../index")
+const { prefix } = require("../index");
 
 function sendNonRichUserEmbed(client, msg, json) {
   msg.channel.send({
@@ -37,32 +37,45 @@ function sendNonRichUserEmbed(client, msg, json) {
 }
 
 function sendRichUserEmbed(client, msg, data) {
-  
-  const author = (data.realName === undefined) ? data.gamertag : `${data.gamertag} (${data.realName})`
-
-  let subscriptionMessage = `Xbox Live ${data.subscriptionType}`
-  if (data.tenure === 1) {
-    console.log("t1")
-    subscriptionMessage += ` (${data.tenure} year)`
-  }
-   else if (data.tenure > 1) {
-    console.log("t2")
-    subscriptionMessage += ` (${data.tenure} years)`
-  }
+  const author =
+    data.realName === undefined
+      ? data.gamertag
+      : `${data.gamertag} (${data.realName})`;
 
   const embed = new Discord.RichEmbed()
     .setColor(3447003)
     .setAuthor(author, client.user.avatarURL)
     .setThumbnail(data.pictureURL)
     // Set footer text, icon and timestamp
-
     .setFooter(`Xbox Live | ${prefix}`, client.user.avatarURL)
-    .setTimestamp()
-    // Add fields
-    //.addField("Status", `${data.presenceState} - ${data.presenceText}`)
-    .addField("Gamerscore", data.gamerscore)
-    .addField("Subscription", subscriptionMessage)
-    .addField("Reputation", data.reputation);
+    .setTimestamp();
+
+  // Add fields
+  if (data.presenceState !== undefined) {
+    if (data.presenceState !== data.presenceText) {
+      embed.addField("Status", `${data.presenceState} - ${data.presenceText}`);
+    } else {
+      embed.addField("Status", data.presenceState);
+    }
+  }
+  
+  embed.addField("Gamerscore", data.gamerscore);
+
+  if (data.subscriptionType !== undefined) {
+    // create the subscription message
+    let subscriptionMessage = `Xbox Live ${data.subscriptionType}`;
+    if (data.tenure === 1) {
+      console.log("t1");
+      subscriptionMessage += ` (${data.tenure} year)`;
+    } else if (data.tenure > 1) {
+      console.log("t2");
+      subscriptionMessage += ` (${data.tenure} years)`;
+    }
+    // add the field
+    embed.addField("Subscription", subscriptionMessage);
+  }
+
+  embed.addField("Reputation", data.reputation);
 
   if (data.bio !== undefined) embed.addField("Bio", data.bio);
   if (data.location !== undefined) embed.addField("Location", data.location);
