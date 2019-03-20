@@ -28,7 +28,7 @@ const responseObj = {
 function checkBody(body) {
     const json = body ? JSON.parse(body) : { code: 1 }
     //const json = JSON.parse(body)
-    if (json.code !== undefined || json[0].ErrorType !== undefined) {
+    if (json.code !== undefined || (Array.isArray(json) && json[0].ErrorType !== undefined)) {
         return false
     } else {
         return true
