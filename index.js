@@ -8,7 +8,6 @@ const prefix = "!xbox";
 // Debug
 const debugLevel = 2;
 
-
 module.exports = { prefix, debugLevel };
 
 // Require local files / modules
@@ -44,8 +43,8 @@ let isExiting = false;
 function exitHandler(options, exitCode) {
   if (!isExiting) {
     isExiting = true;
-    helpers.log("--------------------", "exit");
-    helpers.log(colors.yellow("Cleaning up"), "exit");
+    //helpers.log("--------------------", "exit");
+    helpers.log(colors.yellow("Cleaning up..."), "exit");
     client.destroy();
     helpers.log(colors.yellow("Disconnected from Discord."), "exit");
     process.exit();
@@ -63,6 +62,9 @@ process.on("SIGUSR1", exitHandler.bind(null));
 process.on("SIGUSR2", exitHandler.bind(null));
 
 //catches uncaught exceptions
-process.on("uncaughtException", exitHandler.bind(null));
+process.on("uncaughtException", function(e) {
+  helpers.warn(e, "uncaughtException");
+  exitHandler();
+});
 
 // */
