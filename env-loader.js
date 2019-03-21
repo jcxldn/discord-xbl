@@ -1,34 +1,28 @@
 // Require local files / modules
 const helpers = require("./helpers");
+const console = require("prefix-logger")("env");
 
 // Attempt to import the universal-dotenv package to load env vars from .env.
 try {
   require("universal-dotenv");
-  helpers.log("Using universal-dotenv.", "env");
+  console.log("Using universal-dotenv.");
 } catch (e) {
   if (e.code !== "MODULE_NOT_FOUND") {
-    helpers.warn("Coudn't find universal-dotenv.", "env");
+    console.warn("Coudn't find universal-dotenv.");
   }
 }
 
-let isExiting = false;
-
 // Check for variables
 if (process.env.XBL_TOKEN === undefined) {
-  helpers.warn("no token: Xbox Live", "env");
+  console.warn("no token: Xbox Live");
   isExiting = true;
 } else {
-  helpers.log("found token: Xbox Live", "env");
+  console.log("found token: Xbox Live");
 }
 
 if (process.env.DISCORD_TOKEN === undefined) {
-  helpers.warn("no token: Discord", "env");
+  console.warn("no token: Discord");
   isExiting = true;
 } else {
-  helpers.log("found token: Discord", "env");
-}
-
-if (isExiting) {
-  helpers.log("Exiting...", "env");
-  process.exit();
+  console.log("found token: Discord");
 }

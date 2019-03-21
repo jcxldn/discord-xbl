@@ -1,4 +1,5 @@
 const helpers = require("../helpers");
+const console = require("prefix-logger")("route.xuid");
 const request = require("request");
 
 module.exports = function(client) {
@@ -7,11 +8,13 @@ module.exports = function(client) {
       const searchTag = msg.content.split("xuid ")[1];
 
       if (searchTag.length !== 16 || isNaN(searchTag)) {
-          msg.reply("Invalid XUID. Please try again.")
-          return;
+        msg.reply("Invalid XUID. Please try again.");
+        return;
       }
 
-      const url = `https://xbl.io/api/v2/player/summary/${encodeURIComponent(searchTag)}`;
+      const url = `https://xbl.io/api/v2/player/summary/${encodeURIComponent(
+        searchTag
+      )}`;
       helpers.debug.level1(`url: ${url}`, "route.xuid");
 
       const headers = { "X-Authorization": process.env.XBL_TOKEN };
@@ -19,7 +22,7 @@ module.exports = function(client) {
         // Check the HTTP Response Code.
         if (response.statusCode !== 200) {
           msg.reply("Sorry, I coudn't get your request from the API.");
-          helpers.warn(`HTTP Response ${response.statusCode}`, "route.search");
+          console.warn(`HTTP Response ${response.statusCode}`);
           return;
         }
 

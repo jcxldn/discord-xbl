@@ -1,6 +1,7 @@
 // require packages
 const Discord = require("discord.js");
 const colors = require("colors/safe");
+const console = require("prefix-logger")("index");
 
 // Prefix
 const prefix = "!xbox";
@@ -15,7 +16,7 @@ require("./env-loader");
 const helpers = require("./helpers");
 
 // Print some constants
-helpers.log(`Bot prefix: ${colors.green(prefix)}`, "index");
+console.log(`Bot prefix: ${colors.green(prefix)}`);
 
 // -------------------- Discord Client Stuff --------------------
 
@@ -24,7 +25,7 @@ const client = new Discord.Client();
 
 // Register on ready
 client.on("ready", () => {
-  helpers.log(`Logged in as ${colors.green(client.user.tag)}!`, "index");
+  console.log(`Logged in as ${colors.green(client.user.tag)}!`);
   client.user.setPresence({
     status: "online",
     game: { name: `${prefix} | Alpha` }
@@ -44,9 +45,9 @@ function exitHandler(options, exitCode) {
   if (!isExiting) {
     isExiting = true;
     //helpers.log("--------------------", "exit");
-    helpers.log(colors.yellow("Cleaning up..."), "exit");
+    console.warn("Cleaning up...", "exit");
     client.destroy();
-    helpers.log(colors.yellow("Disconnected from Discord."), "exit");
+    console.warn("Disconnected from Discord.", "exit");
     process.exit();
   }
 }
