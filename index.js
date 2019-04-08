@@ -30,6 +30,22 @@ client.on("ready", () => {
     status: "online",
     game: { name: `${prefix} | Alpha` }
   });
+  console.log(`Connected to ${colors.green(client.guilds.size)} guilds.`);
+
+  // Print bot invite
+  client.generateInvite(["SEND_MESSAGES"]).then(link => {
+    console.log(`Bot invite link: ${link}`);
+  });
+});
+
+// Log to console when the bot joins a server
+client.on("guildCreate", function(guild) {
+  console.log(guild.name, "guild.join");
+});
+
+// Log to console when the bot leaves a server
+client.on("guildDelete", function(guild) {
+  console.log(guild.name, "guild.leave");
 });
 
 // Register everything in the routes folder
