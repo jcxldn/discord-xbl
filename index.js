@@ -64,7 +64,7 @@ process.on("SIGUSR2", exitHandler.bind(null));
 
 //catches uncaught exceptions
 process.on("uncaughtException", function(e) {
-  helpers.warn(e, "uncaughtException");
+  console.error(e, "uncaughtException");
   exitHandler();
 });
 
