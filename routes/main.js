@@ -13,7 +13,8 @@ module.exports = function(client) {
         .setTimestamp()
         // Add fields
         .addField("!xbox search <gamertag>", "find a user by their gamertag")
-        .addField("!xbox xuid <xuid>", "find a user by their xbox user id");
+        .addField("!xbox xuid <xuid>", "find a user by their xbox user id")
+        .addField("!xbox ping", "ping the bot and get a response time");
       msg.channel.send({ embed });
     }
   });
