@@ -12,7 +12,7 @@ module.exports = function(client) {
 
         const embed = new Discord.RichEmbed()
           .setColor(3447003)
-          .setAuthor("Xbox Live Status", client.user.avatarURL)
+          .setAuthor("Xbox Live Service Status", client.user.avatarURL)
           // Set footer text, icon and timestamp
           .setFooter(`Xbox Live | ${prefix}`, client.user.avatarURL)
           .setTimestamp();
