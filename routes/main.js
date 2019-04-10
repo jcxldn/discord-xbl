@@ -20,6 +20,7 @@ module.exports = function(client) {
         // Add fields
         .addField("!xbox search <gamertag>", "find a user by their gamertag")
         .addField("!xbox xuid <xuid>", "find a user by their xbox user id")
+        .addField("!xbox forza <game> <gamertag>", "get a user's forza stats")
         .addField("!xbox status", "show xbox live service status / information")
         .addField("!xbox ping", "ping the bot and get a response time");
       msg.channel.send({ embed });
