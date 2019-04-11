@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
-const helpers = require("../helpers");
-const console = require("prefix-logger")("route.forza");
 const request = require("request");
+const console = require("prefix-logger")("route.forza");
+const helpers = require("../helpers");
 const { prefix } = require("../index");
 
 const gameMap = {
@@ -22,10 +22,7 @@ module.exports = function(client) {
         helpers.formatCommand("forza") + ` ${game} `
       )[1];
 
-      //console.log(split);
-      //console.log(game);
-      //console.log(gamertag);
-
+      // get the names of all supported games
       gameMapKeys = Object.keys(gameMap);
 
       // if message was just '!xbox forza'
@@ -76,7 +73,7 @@ module.exports = function(client) {
           console.warn(`HTTP Response ${response.statusCode}`);
           return;
         }
-        // s
+
         const json = JSON.parse(response.body);
 
         const embed = new Discord.RichEmbed()
@@ -114,7 +111,7 @@ module.exports = function(client) {
           });
         });
 
-        console.log(JSON.stringify(stats));
+        helpers.debug.level2(JSON.stringify(stats), "route.forza.stats");
 
         // If the first stat value is undefined, the user likely hasn't played the game
         if (stats[0].value == undefined) {
@@ -148,11 +145,7 @@ module.exports = function(client) {
             );
             msg.channel.send({ embed });
           });
-          //msg.channel.send({ embed });
         });
-
-        // Send the embed
-        //msg.channel.send({ embed });
       });
     }
   });
