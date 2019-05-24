@@ -17,14 +17,27 @@ module.exports = function(client) {
           .setFooter(`Xbox Live | ${prefix}`, client.user.avatarURL)
           .setTimestamp();
 
-        // for each service, display it's name and description, as well as an emoji for it's status
-        json.forEach(value => {
-          const emoji = (value.status = "Normal")
-            ? ":white_check_mark:"
-            : ":x:";
-          embed.addField(`${emoji} ${value.name}`, value.description);
+        // Add other services (the APIs we use for data)
+        request("https://xbl-api.prouser123.me/dev/isauth", function(
+          error,
+          response,
+          body
+        ) {
+          const status = JSON.parse(body).authenticated ? "Normal" : "Outage";
+          json.push({
+            name: "X2 Xbox Live API",
+            status,
+            description: "The API we use for Forza Stats."
+          });
+
+          // for each service, display it's name and description, as well as an emoji for it's status
+          json.forEach(value => {
+            const emoji =
+              value.status == "Normal" ? ":white_check_mark:" : ":x:";
+            embed.addField(`${emoji} ${value.name}`, value.description);
+          });
+          msg.channel.send(embed);
         });
-        msg.channel.send(embed);
       });
     }
   });
