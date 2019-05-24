@@ -4,6 +4,7 @@ const { prefix } = require("../index");
 const messages = require("./messages");
 const responseFormatter = require("./response-formatter");
 const debug = require("./debug");
+const embed = require("./embed");
 
 const formatCommand = command => {
   return `${prefix} ${command}`;
@@ -20,5 +21,6 @@ module.exports = {
   getRemainingRateLimit,
   messages,
   responseFormatter,
-  debug
+  debug,
+  setEmbedStandards: embed.setEmbedStandards
 };

@@ -10,12 +10,12 @@ module.exports = function(client) {
       request(url, function(error, response, body) {
         const json = JSON.parse(body);
 
-        const embed = new Discord.RichEmbed()
-          .setColor(3447003)
-          .setAuthor("Xbox Live Service Status", client.user.avatarURL)
-          // Set footer text, icon and timestamp
-          .setFooter(`Xbox Live | ${prefix}`, client.user.avatarURL)
-          .setTimestamp();
+        const embed = new Discord.RichEmbed().setAuthor(
+          "Xbox Live Service Status",
+          client.user.avatarURL
+        );
+
+        helpers.setEmbedStandards(embed, client);
 
         // Add other services (the APIs we use for data)
         request("https://xbl-api.prouser123.me/dev/isauth", function(

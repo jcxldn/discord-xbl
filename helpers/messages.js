@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const { prefix } = require("../index");
+const { setEmbedStandards } = require("./embed");
 
 function sendNonRichUserEmbed(client, msg, json) {
   msg.channel.send({
@@ -43,12 +44,10 @@ function sendRichUserEmbed(client, msg, data) {
       : `${data.gamertag} (${data.realName})`;
 
   const embed = new Discord.RichEmbed()
-    .setColor(3447003)
     .setAuthor(author, client.user.avatarURL)
-    .setThumbnail(data.pictureURL)
-    // Set footer text, icon and timestamp
-    .setFooter(`Xbox Live | ${prefix}`, client.user.avatarURL)
-    .setTimestamp();
+    .setThumbnail(data.pictureURL);
+
+  setEmbedStandards(embed, client);
 
   // Add fields
   if (data.presenceState !== undefined) {
@@ -58,7 +57,7 @@ function sendRichUserEmbed(client, msg, data) {
       embed.addField("Status", data.presenceState);
     }
   }
-  
+
   embed.addField("Gamerscore", data.gamerscore);
 
   if (data.subscriptionType !== undefined) {
@@ -79,7 +78,8 @@ function sendRichUserEmbed(client, msg, data) {
 
   if (data.bio !== undefined) embed.addField("Bio", data.bio);
   if (data.location !== undefined) embed.addField("Location", data.location);
-  if (data.watermarks !== undefined) embed.addField("Watermarks", data.watermarks);
+  if (data.watermarks !== undefined)
+    embed.addField("Watermarks", data.watermarks);
 
   msg.channel.send({ embed });
 }

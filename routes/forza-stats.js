@@ -76,13 +76,11 @@ module.exports = function(client) {
 
         const json = JSON.parse(response.body);
 
-        const embed = new Discord.RichEmbed()
-          .setColor(3447003)
-          //.setAuthor("Game Stats", client.user.avatarURL)
-          //.setThumbnail(data.pictureURL)
-          // Set footer text, icon and timestamp
-          .setFooter(`Xbox Live | ${prefix}`, client.user.avatarURL)
-          .setTimestamp();
+        const embed = new Discord.RichEmbed();
+        helpers.setEmbedStandards(embed, client);
+        //.setAuthor("Game Stats", client.user.avatarURL)
+        //.setThumbnail(data.pictureURL)
+        // Set footer text, icon and timestamp
 
         // Add stats to array
         const stats = [];
