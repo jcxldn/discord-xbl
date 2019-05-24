@@ -13,7 +13,8 @@ module.exports = function(client) {
         .addField("!xbox xuid <xuid>", "find a user by their xbox user id")
         .addField("!xbox forza <game> <gamertag>", "get a user's forza stats")
         .addField("!xbox status", "show xbox live service status / information")
-        .addField("!xbox ping", "ping the bot and get a response time");
+        .addField("!xbox ping", "ping the bot and get a response time")
+        .addField("!xbox invite", "pm the bot invite link");
 
       // Set embed standards
       helpers.setEmbedStandards(embed, client);

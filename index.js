@@ -33,7 +33,7 @@ client.on("ready", () => {
   console.log(`Connected to ${colors.green(client.guilds.size)} guilds.`);
 
   // Print bot invite
-  client.generateInvite(["SEND_MESSAGES"]).then(link => {
+  client.generateInvite(["SEND_MESSAGES", "READ_MESSAGES"]).then(link => {
     console.log(`Bot invite link: ${link}`);
   });
 });
