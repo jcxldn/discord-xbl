@@ -12,6 +12,10 @@ module.exports = function(client) {
         .addField("!xbox search <gamertag>", "find a user by their gamertag")
         .addField("!xbox xuid <xuid>", "find a user by their xbox user id")
         .addField("!xbox stats <game> <gamertag>", "get a user's in-game stats")
+        .addField(
+          "!xbox colors <gamertag>",
+          "get a user's preferred color scheme"
+        )
         .addField("!xbox status", "show xbox live service status / information")
         .addField("!xbox ping", "ping the bot and get a response time")
         .addField("!xbox invite", "pm the bot invite link");
