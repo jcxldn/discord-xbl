@@ -14,10 +14,4 @@ _Uses Prouser123's (open source!) [xbox live api](https://github.com/Prouser123/
 
   The Discord bot's API token.
 
-- _`XBL_TOKEN`_
-
-  _XBL.IO token._
-
-  This is being deprecated and will be removed shortly as we replace it with our own in-house API.
-
 - That's it!
