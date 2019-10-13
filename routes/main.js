@@ -18,7 +18,7 @@ module.exports = function(client) {
         )
         .addField("!xbox status", "show xbox live service status / information")
         .addField("!xbox ping", "ping the bot and get a response time")
-        .addField("!xbox invite", "pm the bot invite link");
+        .addField("!xbox invite", "**pms you** the bot invite link");
 
       // Set embed standards
       helpers.setEmbedStandards(embed, client);

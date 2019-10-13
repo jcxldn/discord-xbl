@@ -72,9 +72,7 @@ module.exports = function(client) {
         return;
       }
 
-      const url = `https://xbl-api.prouser123.me/userstats/gamertag/${gamertag}/titleid/${
-        gameMap[game]
-      }`;
+      const url = `https://xbl-api.prouser123.me/userstats/gamertag/${gamertag}/titleid/${gameMap[game]}`;
 
       helpers.debug.level1(`url.1: ${url}`, "route.stats");
 

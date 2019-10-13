@@ -7,13 +7,12 @@ module.exports = function(client) {
     if (msg.content.startsWith(helpers.formatCommand("search"))) {
       const searchTag = msg.content.split("search ")[1];
 
-      const url = `https://xbl.io/api/v2/friends/search?gt=${encodeURIComponent(
+      const url = `https://xbl-api.prouser123.me/profile/gamertag/${encodeURIComponent(
         searchTag
       )}`;
       helpers.debug.level1(`url: ${url}`, "route.search");
 
-      const headers = { "X-Authorization": process.env.XBL_TOKEN };
-      request({ url, headers }, function(error, response, body) {
+      request({ url }, function(error, response, body) {
         // Check the HTTP Response Code.
         if (response.statusCode !== 200) {
           msg.reply("Sorry, I coudn't get your request from the API.");
@@ -28,7 +27,7 @@ module.exports = function(client) {
         }
 
         // Format data
-        const data = helpers.responseFormatter.profileUsers(body);
+        const data = helpers.responseFormatter.px_profile(body);
         // Create and send an embed
         helpers.messages.sendRichUserEmbed(client, msg, data);
       });

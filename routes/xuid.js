@@ -12,13 +12,12 @@ module.exports = function(client) {
         return;
       }
 
-      const url = `https://xbl.io/api/v2/player/summary/${encodeURIComponent(
+      const url = `https://xbl-api.prouser123.me/profile/xuid/${encodeURIComponent(
         searchTag
       )}`;
       helpers.debug.level1(`url: ${url}`, "route.xuid");
 
-      const headers = { "X-Authorization": process.env.XBL_TOKEN };
-      request({ url, headers }, function(error, response, body) {
+      request({ url }, function(error, response, body) {
         // Check the HTTP Response Code.
         if (response.statusCode !== 200) {
           msg.reply("Sorry, I coudn't get your request from the API.");
@@ -33,7 +32,7 @@ module.exports = function(client) {
         }
 
         // Format data
-        const data = helpers.responseFormatter.playerSummary(body);
+        const data = helpers.responseFormatter.px_profile(body);
         // Create and send an embed
         helpers.messages.sendRichUserEmbed(client, msg, data);
       });
