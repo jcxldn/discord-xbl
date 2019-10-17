@@ -25,9 +25,9 @@ module.exports = function(client) {
         ) {
           const status = JSON.parse(body).authenticated ? "Normal" : "Outage";
           json.push({
-            name: "X2 Xbox Live API",
+            name: "XBL-API",
             status,
-            description: "The API we use for Forza Stats."
+            description: "The API that makes this bot possible."
           });
 
           // for each service, display it's name and description, as well as an emoji for it's status
