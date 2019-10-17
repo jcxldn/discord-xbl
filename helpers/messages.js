@@ -80,6 +80,8 @@ function sendRichUserEmbed(client, msg, data) {
   if (data.location !== undefined) embed.addField("Location", data.location);
   if (data.watermarks !== undefined)
     embed.addField("Watermarks", data.watermarks);
+  if (data.followers !== undefined) embed.addField("Followers", data.followers);
+  if (data.following !== undefined) embed.addField("Following", data.following);
 
   msg.channel.send({ embed });
 }

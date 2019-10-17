@@ -13,6 +13,8 @@ const responseObj = {
   location: undefined,
   presenceState: undefined,
   presenceText: undefined,
+  followers: undefined,
+  following: undefined,
 
   _removeEmptyValues: function() {
     const debugPrefix = "rfObj._REV";
@@ -49,7 +51,9 @@ const px_profile = body => {
       Missing in this endpoint:
           - Presence (State)
           - Presence (Text)
-      */
+          - Following
+          - Followers
+  */
   const json = JSON.parse(body);
   var obj = Object.assign({}, responseObj);
 
@@ -73,7 +77,31 @@ const px_profile = body => {
   return obj;
 };
 
+const px_profile_fsummary = (body, fsummary) => {
+  /*
+      XBL-API.PROUSER123.ME FORMAT
+      ----------------------------
+
+      Missing in this endpoint:
+          - Presence (State)
+          - Presence (Text)
+  */
+  const json = JSON.parse(fsummary);
+
+  const obj = px_profile(body);
+
+  obj.followers = json.followers;
+  obj.following = json.following;
+
+  // Remove empty values
+  obj._removeEmptyValues();
+
+  // Return the object
+  return obj;
+};
+
 module.exports = {
   checkBody,
-  px_profile
+  px_profile,
+  px_profile_fsummary
 };
