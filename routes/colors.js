@@ -1,6 +1,5 @@
 const sharp = require("sharp");
 const rp = require("request-promise");
-const colors = require("colors");
 
 const helpers = require("../helpers");
 const console = require("prefix-logger")("route.colors");
