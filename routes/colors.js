@@ -1,5 +1,6 @@
 const sharp = require("sharp");
 const rp = require("request-promise");
+const colors = require("colors");
 
 const helpers = require("../helpers");
 const console = require("prefix-logger")("route.colors");
@@ -46,7 +47,12 @@ module.exports = function(client) {
         });
       } catch (err) {
         msg.reply("Sorry, I coudn't get your request from the API.");
-        console.error(err.message);
+        console.error(
+          `Error by user '${msg.author.tag}' in message '${msg.content}', ERR:`
+            .bold +
+            " " +
+            colors.italic(err.message)
+        );
         return;
       }
     }
