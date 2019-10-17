@@ -9,7 +9,7 @@ function getSha() {
 
 function setEmbedStandards(embed, client) {
   embed.setFooter(
-    `Xbox Live | ${prefix} (${getSha()}.set)`,
+    `Xbox Live (${getSha()}.a2) | ${prefix}`,
     client.user.avatarURL
   );
   embed.setColor(3447003);
