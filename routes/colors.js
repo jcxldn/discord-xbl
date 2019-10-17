@@ -46,14 +46,7 @@ module.exports = function(client) {
           ]
         });
       } catch (err) {
-        msg.reply("Sorry, I coudn't get your request from the API.");
-        console.error(
-          `Error by user '${msg.author.tag}' in message '${msg.content}', ERR:`
-            .bold +
-            " " +
-            colors.italic(err.message)
-        );
-        return;
+        return helpers.errorReplyLog(msg, console, err);
       }
     }
   });

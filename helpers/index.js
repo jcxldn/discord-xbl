@@ -16,9 +16,20 @@ const getRemainingRateLimit = response => {
   }`;
 };
 
+const errorReplyLog = (msg, c, err) => {
+  msg.reply("Sorry, I coudn't get your request from the API.");
+  c.error(
+    `Error by user '${msg.author.tag}' in message '${msg.content}', ERR:`.bold +
+      " " +
+      colors.italic(err.message)
+  );
+  return;
+};
+
 module.exports = {
   formatCommand,
   getRemainingRateLimit,
+  errorReplyLog,
   messages,
   responseFormatter,
   debug,
