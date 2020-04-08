@@ -7,13 +7,13 @@ node('docker-cli') {
   
   docker.image('jcxldn/jenkins-containers:node12').inside {
     stage('Prettier Check') {
-	  # Get the files
+	  // Get the files
       unstash 'scm'
 	  
-	  # Install python for sharp.
+	  // Install python for sharp.
 	  sh 'apk add --no-cache python3 && if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && python3 -m ensurepip && rm -r /usr/lib/python*/ensurepip && pip3 install --no-cache --upgrade pip setuptools wheel && if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi'
 	  
-	  # Run the check.
+	  // Run the check.
       sh 'npm ci && npm run prettier:check'
     } 
   }
