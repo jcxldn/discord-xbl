@@ -5,7 +5,7 @@
 node('docker-cli') {
   scmCloneStage()
   
-  docker.image('jcxldn/jenkins-containers:node12').inside {
+  useDockerImage('jcxldn/jenkins-containers:node12') {
     stage('Prettier Check') {
 	  // Get the files
       unstash 'scm'
