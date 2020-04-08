@@ -8,7 +8,7 @@ node('docker-cli') {
   docker.image('jcxldn/jenkins-containers:node12').inside {
     stage('Prettier Check') {
       unstash 'scm'
-      sh 'npm ci && npm run prettier:check
+      sh 'npm ci && npm run prettier:check'
     } 
   }
   
