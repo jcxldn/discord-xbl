@@ -15,8 +15,12 @@ node('docker-cli') {
 	  
 	  // Run the check.
       sh 'npm ci && npm run prettier:check'
+	  
+	  // Set GitHub status.
+	  ghSetStatus("The check passed.", "success", "ci/prettier")
     } 
   }
   
-  deployStage()
+  // If on the master branch, deploy with GitHub status checks enabled.
+  deployStage(true)
 }
