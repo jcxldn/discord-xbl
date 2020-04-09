@@ -15,6 +15,10 @@ RUN npm install --production
 
 FROM node:10-alpine as runner
 
+# Embed the current git commit in the runner image so that git is not required.
+ARG GIT_COMMIT
+ENV GIT_COMMIT=$GIT_COMMIT
+
 # Install libvips (runtime) for sharp - sharp was built in the previous stage but will still need the runtime to start up.
 RUN apk add --no-cache vips
 

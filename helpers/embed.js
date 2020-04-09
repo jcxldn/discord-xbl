@@ -1,10 +1,15 @@
 const { prefix } = require("../index");
 
 function getSha() {
-  return require("child_process")
-    .execSync("git rev-parse --short HEAD")
-    .toString()
-    .trim();
+  if (process.env.GIT_COMMIT) {
+    return process.env.GIT_COMMIT.toString().substring(0, 7);
+  } else {
+    // Not the docker container, fallback to git CLI.
+    return require("child_process")
+      .execSync("git rev-parse --short HEAD")
+      .toString()
+      .trim();
+  }
 }
 
 function setEmbedStandards(embed, client) {
