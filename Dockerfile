@@ -15,6 +15,9 @@ RUN npm install --production
 
 FROM node:10-alpine as runner
 
+# Install libvips (runtime) for sharp - sharp was built in the previous stage but will still need the runtime to start up.
+RUN apk add --no-cache vips
+
 WORKDIR /app
 
 COPY --from=builder /app/ ./
