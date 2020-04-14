@@ -1,6 +1,10 @@
 const sharp = require("sharp");
 const rp = require("request-promise");
 
+// Disable the sharp cache, fix for musl on Alpine Linux
+// https://github.com/lovell/sharp/issues/838
+sharp.cache(false);
+
 const helpers = require("../helpers");
 const console = require("prefix-logger")("route.colors");
 
