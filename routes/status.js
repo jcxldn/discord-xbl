@@ -23,17 +23,16 @@ module.exports = function(client) {
           response,
           body
         ) {
-          const status = JSON.parse(body).authenticated ? "Normal" : "Outage";
+          const statusId = JSON.parse(body).authenticated ? 1 : 2;
           json.push({
             name: "XBL-API",
-            status,
-            description: "The API that makes this bot possible."
+            statusId,
+            description: "The open source API that makes this bot possible."
           });
 
           // for each service, display it's name and description, as well as an emoji for it's status
           json.forEach(value => {
-            const emoji =
-              value.status == "Normal" ? ":white_check_mark:" : ":x:";
+            const emoji = value.statusId == 1 ? ":white_check_mark: " : ":x: ";
             embed.addField(`${emoji} ${value.name}`, value.description);
           });
           msg.channel.send(embed);
