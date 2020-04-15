@@ -5,19 +5,19 @@
 node('docker-cli') {
   scmCloneStage()
   
-  useDockerImage('jcxldn/jenkins-containers:node12') {
+  useDockerImage('jcxldn/vips-docker:node12-alpine') {
     stage('Prettier Check') {
-	  // Get the files
+	    // Get the files
       unstash 'scm'
+
+	    // Install python and other system tools for sharp.
+	    sh 'apk add --no-cache glib-dev fftw-dev build-base python3 && if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && python3 -m ensurepip && rm -r /usr/lib/python*/ensurepip && pip3 install --no-cache --upgrade pip setuptools wheel && if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi'
 	  
-	  // Install python and other system tools for sharp.
-	  sh 'apk add --no-cache vips-dev fftw-dev build-base python3 && if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && python3 -m ensurepip && rm -r /usr/lib/python*/ensurepip && pip3 install --no-cache --upgrade pip setuptools wheel && if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi'
-	  
-	  // Run the check.
+	    // Run the check.
       sh 'npm ci && npm run prettier:check'
 	  
-	  // Set GitHub status.
-	  ghSetStatus("The check passed.", "success", "ci/prettier")
+	    // Set GitHub status.
+	    ghSetStatus("The check passed.", "success", "ci/prettier")
     } 
   }
   

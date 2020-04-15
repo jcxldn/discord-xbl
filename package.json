@@ -9,7 +9,8 @@
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prettier": "prettier --write \"**/*.@(js|ts|tsx|md|json|yml)\"",
-    "prettier:check": "prettier --check \"**/*.@(js|ts|tsx|md|json|yml)\""
+    "prettier:check": "prettier --check \"**/*.@(js|ts|tsx|md|json|yml)\"",
+    "postinstall": "node postinstall.js"
   },
   "dependencies": {
     "discord.js": "^11.4.2",
