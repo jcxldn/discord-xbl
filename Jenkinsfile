@@ -11,7 +11,8 @@ node('docker-cli') {
       unstash 'scm'
 
 	    // Install python and other system tools for sharp.
-	    sh 'apk add --no-cache glib-dev fftw-dev build-base python3 && if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && python3 -m ensurepip && rm -r /usr/lib/python*/ensurepip && pip3 install --no-cache --upgrade pip setuptools wheel && if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi'
+      // Also install curl for ghSetStatus
+	    sh 'apk add --no-cache curl glib-dev fftw-dev build-base python3 && if [ ! -e /usr/bin/python ]; then ln -sf python3 /usr/bin/python ; fi && python3 -m ensurepip && rm -r /usr/lib/python*/ensurepip && pip3 install --no-cache --upgrade pip setuptools wheel && if [ ! -e /usr/bin/pip ]; then ln -s pip3 /usr/bin/pip ; fi'
 	  
 	    // Run the check.
       sh 'npm ci && npm run prettier:check'
