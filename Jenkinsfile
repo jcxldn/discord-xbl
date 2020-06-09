@@ -24,4 +24,6 @@ node('docker-cli') {
   
   // If on the master branch, deploy with GitHub status checks enabled.
   deployStage(true)
+  
+  cleanWs()
 }
